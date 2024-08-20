@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Hannah {
@@ -14,6 +16,7 @@ public class Hannah {
         System.out.println("____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in);
+        List<String> list = new ArrayList<>();
         while (true) {
             String userInput = scanner.nextLine();
 
@@ -23,10 +26,16 @@ public class Hannah {
                 System.out.println(" Bye. Hope to see you again soon!");
                 System.out.println("____________________________________________________________");
                 break;
+            } else if (userInput.equals("list")) {
+                    // Exit the program
+                for (int i = 0; i < list.size(); i++ ) {
+                    System.out.println(i + 1 + ". " + list.get(i));
+                }
             } else {
                 // Echo the user input
+                list.add(userInput);
                 System.out.println("____________________________________________________________");
-                System.out.println(" " + userInput);
+                System.out.println("added: " + userInput);
                 System.out.println("____________________________________________________________");
             }
         }
