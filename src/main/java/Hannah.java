@@ -42,36 +42,48 @@ public class Hannah {
                 System.out.println("GoodJob! Task Marked! ");
                 System.out.println(task.toString());
             }  else if (userInput.split(" ")[0].equals("todo")) {
-                System.out.println("Added todo task!");
-                ToDos task = new ToDos(userInput);
-                list.add(task);
-                System.out.println(task.toString());
-                System.out.println("You now have " + list.size() + " tasks in your list.");
+                if (userInput.length() <= 4) {
+                    System.out.println(" please add a task todo");
+                } else {
+                    System.out.println("Added todo task!");
+                    ToDos task = new ToDos(userInput);
+                    list.add(task);
+                    System.out.println(task.toString());
+                    System.out.println("You now have " + list.size() + " tasks in your list.");
+                }
             } else if (userInput.split(" ")[0].equals("deadline")) {
-                System.out.println("Added deadline task!");
-                int slashIndex = userInput.indexOf("/");
-                String taskName = userInput.substring(9, slashIndex);
-                Deadlines task = new Deadlines(taskName);
-                task.setDeadline(userInput.substring(slashIndex));
-                list.add(task);
-                System.out.println(task.toString());
-                System.out.println("You now have " + list.size() + " tasks in your list.");
+                if (userInput.length() <= 8) {
+                    System.out.println(" please add a task after deadline");
+                } else {
+                    System.out.println("Added deadline task!");
+                    int slashIndex = userInput.indexOf("/");
+                    String taskName = userInput.substring(9, slashIndex);
+                    Deadlines task = new Deadlines(taskName);
+                    task.setDeadline(userInput.substring(slashIndex));
+                    list.add(task);
+                    System.out.println(task.toString());
+                    System.out.println("You now have " + list.size() + " tasks in your list.");
+                }
             } else if (userInput.split(" ")[0].equals("event")) {
-                System.out.println("Added event task!");
-                int fromIndex = userInput.indexOf("/from");
-                int toIndex = userInput.indexOf("/to");
-                String taskName = userInput.substring(6, fromIndex);
-                Events task = new Events(taskName);
-                task.setDuration(userInput.substring(fromIndex + 1, toIndex), userInput.substring(toIndex +1));
-                list.add(task);
-                System.out.println(task.toString());
-                System.out.println("You now have " + list.size() + " tasks in your list.");
+                if (userInput.length() <= 5) {
+                    System.out.println(" please add a task after event");
+                } else {
+                    System.out.println("Added event task!");
+                    int fromIndex = userInput.indexOf("/from");
+                    int toIndex = userInput.indexOf("/to");
+                    String taskName = userInput.substring(6, fromIndex);
+                    Events task = new Events(taskName);
+                    task.setDuration(userInput.substring(fromIndex + 1, toIndex), userInput.substring(toIndex + 1));
+                    list.add(task);
+                    System.out.println(task.toString());
+                    System.out.println("You now have " + list.size() + " tasks in your list.");
+                }
             } else {
-                // Echo the user input
+                // invalid input
                 Task task = new Task(userInput);
-                list.add(task);
                 System.out.println("____________________________________________________________");
-                System.out.println("added: " + task.name);
+                System.out.println("Sorry i'm not too sure what this task is, " +
+                        "please state either 'todo', 'deadline' or 'event' before your task");
             }
             System.out.println("____________________________________________________________");
         }
