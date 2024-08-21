@@ -23,6 +23,14 @@ public class Hannah {
                 for (int i = 0; i < list.size(); i ++) {
                     System.out.println(i + 1 + ". " + list.get(i).toString());
                 }
+            } else if (userInput.split(" ")[0].equals("delete")) {
+                System.out.println("Okay will remove the task: ");
+                char taskNumberChar = userInput.charAt(7);
+                int taskNumber = taskNumberChar - '0';
+                list.remove(taskNumber -1);
+                Task task = list.get(taskNumber - 1);
+                System.out.println(task.toString());
+                System.out.println("You now have " + list.size() + " tasks in your list.");
             } else if (userInput.split(" ")[0].equals("unmark")) {
                 char taskNumberChar = userInput.charAt(7);
                 int taskNumber = taskNumberChar - '0';
@@ -84,6 +92,7 @@ public class Hannah {
                 System.out.println("____________________________________________________________");
                 System.out.println("Sorry i'm not too sure what this task is, " +
                         "please state either 'todo', 'deadline' or 'event' before your task");
+                System.out.println("Commands: delete, mark, unmark");
             }
             System.out.println("____________________________________________________________");
         }
