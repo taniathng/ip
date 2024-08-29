@@ -7,10 +7,10 @@ D | 0 | return book | by June 7th
 E | 0 | project meeting | from 2pm to 6pm
 T | 0 | join sports club
 T | 0 | hi
-D | 0 | bye | by 8 
-E | 0 | concert | from 9 to 10 
+D | 0 | bye | by 8
+E | 0 | concert | from 9 to 10
 T | 0 | hi
 T | 0 | hello
 T | 1 | bye
-D | 0 | bye | by 8 
-E | 1 | lift | from 9 to 10 
+D | 0 | bye | by 8
+E | 1 | lift | from 9 to 10
