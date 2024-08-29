@@ -8,11 +8,19 @@ public class Events extends Task{
     }
     @Override
     public String toString(){
-        return("[E]" + super.toString() + this.startDuration +  this.endDuration);
+        return("[E]" + super.toString() + " " +  this.startDuration +  this.endDuration);
     }
 
+    @Override
     public void setDuration(String startDuration, String endDuration){
         this.startDuration = startDuration;
         this.endDuration = endDuration;
+    }
+
+    @Override
+    public String saveTaskFormat(){
+        String line = "E | " + (isDone ? "1" : "0") + " | " + super.name + " | " + this.startDuration +  this.endDuration;
+        return line + System.lineSeparator();
+
     }
 }
