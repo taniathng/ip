@@ -15,4 +15,16 @@ public class Task {
         String done = this.isDone ? "X" : " ";
         return("[" + done + "] " + this.name);
     }
+    public String getName() {
+        return this.name;
+    }
+    public String saveTaskFormat(){
+        return "";
+    }
+
+    public void setDuration(String substring, String substring1) {
+    }
+
+    public void setDeadline(String substring) {
+    }
 }
