@@ -1,18 +1,35 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Events extends Task{
     String name;
-    String startDuration;
-    String endDuration;
+    LocalDate startDuration;
+    LocalDate endDuration;
     public Events(String name){
         super(name);
 
     }
     @Override
     public String toString(){
-        return("[E]" + super.toString() + this.startDuration +  this.endDuration);
+        return("[E]" + super.toString() + " from " +  this.startDuration + " to " + this.endDuration);
     }
 
+    @Override
     public void setDuration(String startDuration, String endDuration){
-        this.startDuration = startDuration;
-        this.endDuration = endDuration;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            this.startDuration = LocalDate.parse(startDuration, formatter);
+            this.endDuration = LocalDate.parse(endDuration, formatter);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format for event duration. Please use yyyy-MM-dd.");
+        }
+    }
+
+    @Override
+    public String saveTaskFormat(){
+        String line = "E | " + (isDone ? "1" : "0") + " | " + super.name + " | from " + this.startDuration + " to " + this.endDuration;
+        return line + System.lineSeparator();
+
     }
 }
