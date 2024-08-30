@@ -49,7 +49,7 @@ public class Storage {
                 if (isDone) {
                     deadlineTask.setDone();
                 }
-                deadlineTask.setDeadline(taskInfo[3]);
+                deadlineTask.setDeadline(taskInfo[3].substring(3));
                 return deadlineTask;
             case "E":
                 Events eventTask = new Events(taskInfo[2]);
@@ -59,7 +59,7 @@ public class Storage {
                 String duration = taskInfo[3];
                 int fromIndex = duration.indexOf("from ");
                 int toIndex = duration.indexOf("to ");
-                eventTask.setDuration(duration.substring(fromIndex, toIndex), duration.substring(toIndex));
+                eventTask.setDuration(duration.substring(fromIndex + 5, toIndex-1), duration.substring(toIndex + 3));
                 return eventTask;
             default:
                 return null;  // Handle any unexpected task types

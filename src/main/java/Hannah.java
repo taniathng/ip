@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -93,11 +96,15 @@ public class Hannah {
                 if (userInput.length() <= 8) {
                     System.out.println(" please add a task after deadline");
                 } else {
-                    System.out.println("Added deadline task!");
                     int slashIndex = userInput.indexOf("/");
+                    if (!validateDate(userInput.substring(slashIndex + 4))){
+                        continue;
+                    }
+                    System.out.println("Added deadline task!");
+
                     String taskName = userInput.substring(9, slashIndex -1);
                     task = new Deadlines(taskName);
-                    task.setDeadline(userInput.substring(slashIndex + 1));
+                    task.setDeadline(userInput.substring(slashIndex + 4));
                     list.add(task);
                     System.out.println(task.toString());
                     System.out.println("You now have " + list.size() + " tasks in your list.");
@@ -112,12 +119,19 @@ public class Hannah {
                 if (userInput.length() <= 5) {
                     System.out.println(" please add a task after event");
                 } else {
-                    System.out.println("Added event task!");
                     int fromIndex = userInput.indexOf("/from");
                     int toIndex = userInput.indexOf("/to");
+                    if (!validateDate(userInput.substring(fromIndex + 6, toIndex -1))){
+                        System.out.println(userInput.substring(fromIndex + 6));
+                        continue;
+                    }
+                    if (!validateDate(userInput.substring(toIndex + 4))){
+                        continue;
+                    }
+                    System.out.println("Added event task!");
                     String taskName = userInput.substring(6, fromIndex -1);
                     task = new Events(taskName);
-                    task.setDuration(userInput.substring(fromIndex + 1, toIndex), userInput.substring(toIndex + 1));
+                    task.setDuration(userInput.substring(fromIndex + 6, toIndex-1), userInput.substring(toIndex + 4));
                     list.add(task);
                     System.out.println(task.toString());
                     System.out.println("You now have " + list.size() + " tasks in your list.");
@@ -145,5 +159,17 @@ public class Hannah {
         }    }
     public static void main(String[] args) {
         new Hannah().run();
+    }
+
+    private boolean validateDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            LocalDate.parse(date, formatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format. Please use yyyy-MM-dd.");
+            System.out.println("____________________________________________________________");
+            return false;
+        }
     }
 }
