@@ -20,10 +20,10 @@ public class Ui {
         System.out.println(" Bye. Hope to see you again soon!");
     }
 
-    public void showTasks(List<Task> tasks) {
+    public void showTasks(TaskList tasks) {
         System.out.println("Tasks on your list!");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(i + 1 + ". " + tasks.get(i).toString());
+            System.out.println(i + 1 + ". " + tasks.getTasks().get(i).toString());
         }
     }
 

@@ -5,14 +5,14 @@ import java.util.List;
 
 public class Storage {
     private String filePath;
-    private ArrayList<Task> taskList;
+    private TaskList taskList;
     private Task task;
 
     public Storage(String filePath) {
         this.filePath = filePath;
-        this.taskList = new ArrayList<>();
+        this.taskList = new TaskList();
     }
-    public ArrayList<Task> loadFile() throws FileNotFoundException {
+    public TaskList loadFile() throws FileNotFoundException {
         File file = new File(filePath);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNext()) {
@@ -20,7 +20,7 @@ public class Storage {
                 String[] taskInfo = line.split(" \\| ");
                 Task task = createTask(taskInfo);  // Parse each line into a Task object
                 if (task != null) {
-                    taskList.add(task);
+                    taskList.addTask(task);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -28,7 +28,7 @@ public class Storage {
         }
         return taskList;
     }
-    public List<Task> getTaskList() {
+    public TaskList getTaskList() {
         return taskList;
     }
 
@@ -95,7 +95,7 @@ public class Storage {
 //    }
     public void rewriteFile() throws IOException {
         try (FileWriter fw = new FileWriter(filePath, false)) {  // 'false' overwrites the file
-            for (Task task : taskList) {
+            for (Task task : taskList.getTasks()) {
                 fw.write(task.saveTaskFormat());
             }
         } catch (IOException e) {
