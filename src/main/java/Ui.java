@@ -33,7 +33,7 @@ public class Ui {
         System.out.println("You now have " + taskCount + " tasks in your list.");
     }
 
-    public void showTaskDeleted(int taskNumber, int taskCount, Task task) {
+    public void showTaskDeleted(int taskCount, Task task) {
         System.out.println("Okay will remove the task: ");
         System.out.println(task.toString());
         System.out.println("You now have " + taskCount + " tasks in your list.");

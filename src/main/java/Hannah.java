@@ -9,12 +9,14 @@ import java.io.*;
 public class Hannah {
     private Storage storage;
     private TaskList list;
+    private Parser parser;
     private static final String FILE_PATH = "src/data/Hannah.txt";
     private Ui ui;
 
     public Hannah() {
         this.ui = new Ui();
         this.storage = new Storage(FILE_PATH);
+        this.parser = new Parser();
         try {
             this.list = storage.loadFile();
         } catch (FileNotFoundException e) {
@@ -29,29 +31,31 @@ public class Hannah {
         TaskList list = (TaskList) this.storage.getTaskList();
         while (true) {
             String userInput = ui.readCommand();
-//            String userInput = scanner.nextLine();
+            Command command = parser.parse(userInput);
             Task task = null;
-            if (userInput.equals("bye")) {
+            String commandName = command.getCommandType();
+            if (commandName == "bye") {
                 ui.showGoodbyeMessage();
                 break;
-            } else if (userInput.equals("list")) {
+            } else if (commandName == "list") {
                 ui.showTasks(list);
-            } else if (userInput.split(" ")[0].equals("delete")) {
+            } else if (commandName == "delete") {
                 int taskNumber = ui.getTaskNumber(userInput);
-                int taskCount = list.size();
+                task = list.getTask(taskNumber);
                 list.deleteTask(taskNumber);
-                ui.showTaskDeleted(taskNumber, taskCount, task);
-            } else if (userInput.split(" ")[0].equals("unmark")) {
+                int taskCount = list.size();
+                ui.showTaskDeleted(taskCount, task);
+            } else if (commandName == "unmark") {
                 int taskNumber = ui.getTaskNumber(userInput);
-                task = list.getTask(taskNumber - 1);
+                task = list.getTask(taskNumber);
                 list.unmarkTask(task);
                 ui.showTaskUnmarked(task);
-            } else if (userInput.split(" ")[0].equals("mark")) {
+            } else if (commandName == "mark") {
                 int taskNumber = ui.getTaskNumber(userInput);
-                task = list.getTask(taskNumber - 1);
+                task = list.getTask(taskNumber);
                 list.markTask(task);
                 ui.showTaskMarked(task);
-            } else if (userInput.split(" ")[0].equals("todo")) {
+            } else if (commandName == "todo") {
                 if (userInput.length() <= 4) {
                     System.out.println(" Please add a task todo");
                 } else {
@@ -59,16 +63,10 @@ public class Hannah {
                     list.addTask(task);
                     int taskCount = list.size();
                     ui.showTaskAdded(task, taskCount);
-                    try {
-                        storage.save(task);  // Save all tasks after the loop iteration
-                        System.out.println("Tasks saved successfully.");
-                    } catch (IOException e) {
-                        System.out.println("Error saving tasks: " + e.getMessage());
-                    }
                 }
-            } else if (userInput.split(" ")[0].equals("deadline")) {
+            } else if (commandName == "deadline") {
                 if (userInput.length() <= 8) {
-                    System.out.println(" please add a task after deadline");
+                    System.out.println(" Please add a task after deadline");
                 } else {
                     int slashIndex = userInput.indexOf("/");
                     if (!validateDate(userInput.substring(slashIndex + 4))){
@@ -81,16 +79,10 @@ public class Hannah {
                     list.addTask(task);
                     int taskCount = list.size();
                     ui.showTaskAdded(task, taskCount);
-                    try {
-                        storage.save(task);  // Save all tasks after the loop iteration
-                        System.out.println("Tasks saved successfully.");
-                    } catch (IOException e) {
-                        System.out.println("Error saving tasks: " + e.getMessage());
-                    }
                 }
-            } else if (userInput.split(" ")[0].equals("event")) {
+            } else if (commandName == "event") {
                 if (userInput.length() <= 5) {
-                    System.out.println(" please add a task after event");
+                    System.out.println(" Please add a task after event");
                 } else {
                     int fromIndex = userInput.indexOf("/from");
                     int toIndex = userInput.indexOf("/to");
@@ -107,19 +99,11 @@ public class Hannah {
                     list.addTask(task);
                     int taskCount = list.size();
                     ui.showTaskAdded(task, taskCount);
-                    try {
-                        storage.save(task);  // Save all tasks after the loop iteration
-                        System.out.println("Tasks saved successfully.");
-                    } catch (IOException e) {
-                        System.out.println("Error saving tasks: " + e.getMessage());
-                    }
                 }
             } else {
                 // invalid input
                 System.out.println("____________________________________________________________");
-                System.out.println("Sorry i'm not too sure what this task is, " +
-                        "please state either 'todo', 'deadline' or 'event' before your task");
-                System.out.println("Commands: delete, mark, unmark");
+                System.out.println("Commands: todo, deadline, event, delete, mark, unmark");
             }
             System.out.println("____________________________________________________________");
         }
