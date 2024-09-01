@@ -10,8 +10,10 @@ public class Hannah {
     private Storage storage;
     private List<Task> list;
     private static final String FILE_PATH = "src/data/Hannah.txt";
+    private Ui ui;
 
     public Hannah() {
+        this.ui = new Ui();
         this.storage = new Storage(FILE_PATH);
         try {
             this.list = new ArrayList<Task>(storage.loadFile());
@@ -22,69 +24,46 @@ public class Hannah {
     }
 
     public void run() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm Hannah");
-        System.out.println(" What can I do for you?");
-        System.out.println("____________________________________________________________");
-
+        ui.showWelcomeMessage();
         Scanner scanner = new Scanner(System.in);
         List<Task> list = this.storage.getTaskList();
         while (true) {
-            String userInput = scanner.nextLine();
+            String userInput = ui.readCommand();
+//            String userInput = scanner.nextLine();
             Task task = null;
             if (userInput.equals("bye")) {
-                // Exit the program
-                System.out.println("____________________________________________________________");
-                System.out.println(" Bye. Hope to see you again soon!");
+                ui.showGoodbyeMessage();
                 break;
             } else if (userInput.equals("list")) {
-                System.out.println("Tasks on your list!");
-                for (int i = 0; i < list.size(); i++) {
-                    System.out.println(i + 1 + ". " + list.get(i).toString());
-                }
+                ui.showTasks(list);
             } else if (userInput.split(" ")[0].equals("delete")) {
-                System.out.println("Okay will remove the task: ");
-                char taskNumberChar = userInput.charAt(7);
-                int taskNumber = taskNumberChar - '0';
-                list.remove(taskNumber - 1);
+                int taskNumber = ui.getTaskNumber(userInput);
+                int taskCount = list.size();
                 task = list.get(taskNumber - 1);
-                System.out.println(task.toString());
-                System.out.println("You now have " + list.size() + " tasks in your list.");
+                list.remove(taskNumber - 1);
+                ui.showTaskDeleted(taskNumber, taskCount, task);
             } else if (userInput.split(" ")[0].equals("unmark")) {
-                String[] parts = userInput.split(" ");
-                int taskNumber = 0;
-                if (parts.length > 1) {
-                    taskNumber = Integer.parseInt(parts[1]);
-                }
-                System.out.println("taskNumber:" + taskNumber);
+                int taskNumber = ui.getTaskNumber(userInput);
                 task = list.get(taskNumber - 1);
                 if (task.isDone) {
                     task.setDone();
                 }
-                System.out.println("Okay, task unmarked!");
-                System.out.println(task.toString());
+                ui.showTaskUnmarked(task);
             } else if (userInput.split(" ")[0].equals("mark")) {
-                String[] parts = userInput.split(" ");
-                int taskNumber = 0;
-                if (parts.length > 1) {
-                    taskNumber = Integer.parseInt(parts[1]);
-                }
-                System.out.println("taskNumber:" + taskNumber);
+                int taskNumber = ui.getTaskNumber(userInput);
                 task = list.get(taskNumber - 1);
                 if (!task.isDone) {
                     task.setDone();
                 }
-                System.out.println("GoodJob! Task Marked! ");
-                System.out.println(task.toString());
+                ui.showTaskMarked(task);
             } else if (userInput.split(" ")[0].equals("todo")) {
                 if (userInput.length() <= 4) {
-                    System.out.println(" please add a task todo");
+                    System.out.println(" Please add a task todo");
                 } else {
-                    System.out.println("Added todo task!");
                     task = new ToDos(userInput.substring(5));
                     list.add(task);
-                    System.out.println(task.toString());
-                    System.out.println("You now have " + list.size() + " tasks in your list.");
+                    int taskCount = list.size();
+                    ui.showTaskAdded(task, taskCount);
                     try {
                         storage.save(task);  // Save all tasks after the loop iteration
                         System.out.println("Tasks saved successfully.");
@@ -100,14 +79,14 @@ public class Hannah {
                     if (!validateDate(userInput.substring(slashIndex + 4))){
                         continue;
                     }
-                    System.out.println("Added deadline task!");
 
                     String taskName = userInput.substring(9, slashIndex -1);
                     task = new Deadlines(taskName);
                     task.setDeadline(userInput.substring(slashIndex + 4));
                     list.add(task);
-                    System.out.println(task.toString());
-                    System.out.println("You now have " + list.size() + " tasks in your list.");
+                    list.add(task);
+                    int taskCount = list.size();
+                    ui.showTaskAdded(task, taskCount);
                     try {
                         storage.save(task);  // Save all tasks after the loop iteration
                         System.out.println("Tasks saved successfully.");
@@ -128,13 +107,12 @@ public class Hannah {
                     if (!validateDate(userInput.substring(toIndex + 4))){
                         continue;
                     }
-                    System.out.println("Added event task!");
                     String taskName = userInput.substring(6, fromIndex -1);
                     task = new Events(taskName);
                     task.setDuration(userInput.substring(fromIndex + 6, toIndex-1), userInput.substring(toIndex + 4));
                     list.add(task);
-                    System.out.println(task.toString());
-                    System.out.println("You now have " + list.size() + " tasks in your list.");
+                    int taskCount = list.size();
+                    ui.showTaskAdded(task, taskCount);
                     try {
                         storage.save(task);  // Save all tasks after the loop iteration
                         System.out.println("Tasks saved successfully.");
@@ -144,7 +122,6 @@ public class Hannah {
                 }
             } else {
                 // invalid input
-                task = new Task(userInput);
                 System.out.println("____________________________________________________________");
                 System.out.println("Sorry i'm not too sure what this task is, " +
                         "please state either 'todo', 'deadline' or 'event' before your task");
