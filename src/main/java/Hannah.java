@@ -8,7 +8,7 @@ import java.io.*;
 
 public class Hannah {
     private Storage storage;
-    private List<Task> list;
+    private TaskList list;
     private static final String FILE_PATH = "src/data/Hannah.txt";
     private Ui ui;
 
@@ -16,17 +16,17 @@ public class Hannah {
         this.ui = new Ui();
         this.storage = new Storage(FILE_PATH);
         try {
-            this.list = new ArrayList<Task>(storage.loadFile());
+            this.list = storage.loadFile();
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + e.getMessage());
-            this.list = new ArrayList<>(); // Initialize to an empty list if the file isn't found
+            this.list = new TaskList(); // Initialize to an empty list if the file isn't found
         }
     }
 
     public void run() {
         ui.showWelcomeMessage();
         Scanner scanner = new Scanner(System.in);
-        List<Task> list = this.storage.getTaskList();
+        TaskList list = (TaskList) this.storage.getTaskList();
         while (true) {
             String userInput = ui.readCommand();
 //            String userInput = scanner.nextLine();
@@ -39,29 +39,24 @@ public class Hannah {
             } else if (userInput.split(" ")[0].equals("delete")) {
                 int taskNumber = ui.getTaskNumber(userInput);
                 int taskCount = list.size();
-                task = list.get(taskNumber - 1);
-                list.remove(taskNumber - 1);
+                list.deleteTask(taskNumber);
                 ui.showTaskDeleted(taskNumber, taskCount, task);
             } else if (userInput.split(" ")[0].equals("unmark")) {
                 int taskNumber = ui.getTaskNumber(userInput);
-                task = list.get(taskNumber - 1);
-                if (task.isDone) {
-                    task.setDone();
-                }
+                task = list.getTask(taskNumber - 1);
+                list.unmarkTask(task);
                 ui.showTaskUnmarked(task);
             } else if (userInput.split(" ")[0].equals("mark")) {
                 int taskNumber = ui.getTaskNumber(userInput);
-                task = list.get(taskNumber - 1);
-                if (!task.isDone) {
-                    task.setDone();
-                }
+                task = list.getTask(taskNumber - 1);
+                list.markTask(task);
                 ui.showTaskMarked(task);
             } else if (userInput.split(" ")[0].equals("todo")) {
                 if (userInput.length() <= 4) {
                     System.out.println(" Please add a task todo");
                 } else {
                     task = new ToDos(userInput.substring(5));
-                    list.add(task);
+                    list.addTask(task);
                     int taskCount = list.size();
                     ui.showTaskAdded(task, taskCount);
                     try {
@@ -83,8 +78,7 @@ public class Hannah {
                     String taskName = userInput.substring(9, slashIndex -1);
                     task = new Deadlines(taskName);
                     task.setDeadline(userInput.substring(slashIndex + 4));
-                    list.add(task);
-                    list.add(task);
+                    list.addTask(task);
                     int taskCount = list.size();
                     ui.showTaskAdded(task, taskCount);
                     try {
@@ -110,7 +104,7 @@ public class Hannah {
                     String taskName = userInput.substring(6, fromIndex -1);
                     task = new Events(taskName);
                     task.setDuration(userInput.substring(fromIndex + 6, toIndex-1), userInput.substring(toIndex + 4));
-                    list.add(task);
+                    list.addTask(task);
                     int taskCount = list.size();
                     ui.showTaskAdded(task, taskCount);
                     try {
