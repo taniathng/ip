@@ -1,3 +1,5 @@
+package hannah.command;
+
 public class Command {
     private String commandType;
     private String arguments;

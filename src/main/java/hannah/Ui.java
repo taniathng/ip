@@ -1,5 +1,10 @@
+package hannah;
+
 import java.util.List;
 import java.util.Scanner;
+import hannah.task.Task;
+import hannah.task.TaskList;
+
 
 public class Ui {
     private Scanner scanner;
@@ -10,7 +15,7 @@ public class Ui {
 
     public void showWelcomeMessage() {
         System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm Hannah");
+        System.out.println(" Hello! I'm Hannah.");
         System.out.println(" What can I do for you?");
         System.out.println("____________________________________________________________");
     }
@@ -40,7 +45,7 @@ public class Ui {
     }
 
     public void showTaskMarked(Task task) {
-        System.out.println("Good job! Task Marked!");
+        System.out.println("Good job! hannah.task.Task Marked!");
         System.out.println(task.toString());
     }
 

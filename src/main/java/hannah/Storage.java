@@ -1,7 +1,13 @@
+package hannah;
+
+import hannah.task.Deadlines;
+import hannah.task.Events;
+import hannah.task.ToDos;
+import hannah.task.TaskList;
+import hannah.task.Task;
+
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.List;
 
 public class Storage {
     private String filePath;
@@ -18,7 +24,7 @@ public class Storage {
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
                 String[] taskInfo = line.split(" \\| ");
-                Task task = createTask(taskInfo);  // Parse each line into a Task object
+                Task task = createTask(taskInfo);  // Parse each line into a hannah.task.Task object
                 if (task != null) {
                     taskList.addTask(task);
                 }
@@ -74,7 +80,7 @@ public class Storage {
         }
     }
 
-//    public void updateDoneStatus(Task task) throws IOException {
+//    public void updateDoneStatus(hannah.task.Task task) throws IOException {
 //        File file = new File(filePath);
 //        File tempFile = new File("tempFile.txt");
 //

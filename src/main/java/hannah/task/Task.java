@@ -1,3 +1,5 @@
+package hannah.task;
+
 public class Task {
     boolean isDone;
     String name;

@@ -1,5 +1,5 @@
 ____________________________________________________________
- Hello! I'm Hannah
+ Hello! I'm hannah.Hannah
  What can I do for you?
 ____________________________________________________________
 Added todo task!
@@ -14,7 +14,7 @@ Added event task!
 [E][ ] meet from 5 to 6
 You now have 3 tasks in your list.
 ____________________________________________________________
-GoodJob! Task Marked! 
+GoodJob! hannah.task.Task Marked!
 [D][X] return by sunday
 ____________________________________________________________
 Tasks on your list!
