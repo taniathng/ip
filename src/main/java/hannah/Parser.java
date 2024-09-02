@@ -1,3 +1,7 @@
+package hannah;
+
+import hannah.command.Command;
+
 public class Parser {
 
     public Command parse(String userInput) {

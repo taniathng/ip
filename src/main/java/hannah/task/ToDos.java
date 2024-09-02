@@ -1,4 +1,6 @@
-public class ToDos extends Task{
+package hannah.task;
+
+public class ToDos extends Task {
     String name;
     public ToDos(String name){
         super(name);
