@@ -1,5 +1,6 @@
 package hannah;
 
+import java.util.List;
 import java.util.Scanner;
 import hannah.task.Task;
 import hannah.task.TaskList;
@@ -125,4 +126,19 @@ public class Ui {
         }
         return taskNumber;
     }
+
+    public String getKeyword(String userInput){
+        String[] parts = userInput.split(" ");
+        return parts[1];
+    }
+
+    public void showFindResults(TaskList tasks, String keyword) {
+        System.out.println("Here are the matching tasks in your list:");
+        List<Task> matchingTasks = tasks.findTasks(keyword);
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + matchingTasks.get(i));
+        }
+        System.out.println("____________________________________________________________");
+    }
+
 }
