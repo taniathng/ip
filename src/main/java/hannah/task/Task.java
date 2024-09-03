@@ -29,4 +29,8 @@ public class Task {
 
     public void setDeadline(String substring) {
     }
+
+    public boolean isDone() {
+        return this.isDone;
+    }
 }
