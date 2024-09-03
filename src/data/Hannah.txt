@@ -8,5 +8,6 @@ E | 1 | concert | from 2026-06-06 to 2029-04-04
 T | 0 | homework
 T | 0 | helloooo
 T | 0 | read
-T | 0 | sleep
-T | 1 | sleeping
+T | 1 | sleep
+T | 0 | list
+T | 0 | run

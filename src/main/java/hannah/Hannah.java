@@ -4,8 +4,8 @@ import hannah.command.Command;
 import hannah.task.Task;
 import hannah.task.TaskList;
 import hannah.task.ToDos;
-import hannah.task.Deadlines;
-import hannah.task.Events;
+import hannah.task.Deadline;
+import hannah.task.Event;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -90,7 +90,7 @@ public class Hannah {
                     }
 
                     String taskName = userInput.substring(9, slashIndex -1);
-                    task = new Deadlines(taskName);
+                    task = new Deadline(taskName);
                     task.setDeadline(userInput.substring(slashIndex + 4));
                     list.addTask(task);
                     int taskCount = list.size();
@@ -110,7 +110,7 @@ public class Hannah {
                         continue;
                     }
                     String taskName = userInput.substring(6, fromIndex -1);
-                    task = new Events(taskName);
+                    task = new Event(taskName);
                     task.setDuration(userInput.substring(fromIndex + 6, toIndex-1), userInput.substring(toIndex + 4));
                     list.addTask(task);
                     int taskCount = list.size();
