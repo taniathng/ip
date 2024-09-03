@@ -24,6 +24,9 @@ public class Deadlines extends Task {
             System.out.println("Invalid date format. Please use yyyy-MM-dd.");
         }
     }
+    public LocalDate getDeadline(){
+        return this.deadline;
+    }
     @Override
     public String saveTaskFormat(){
         String line = "D | " + (isDone ? "1" : "0") + " | " + super.name + " | by " + this.deadline;
