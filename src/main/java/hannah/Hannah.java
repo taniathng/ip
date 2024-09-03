@@ -10,6 +10,7 @@ import hannah.task.Events;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Scanner;
 import java.io.*;
 
@@ -107,6 +108,10 @@ public class Hannah {
                     int taskCount = list.size();
                     ui.showTaskAdded(task, taskCount);
                 }
+            } else if (commandName == "find"){
+                System.out.println("finding...");
+                String keyword = ui.getKeyword(userInput);
+                ui.showFindResults(list, keyword);
             } else {
                 // invalid input
                 System.out.println("____________________________________________________________");

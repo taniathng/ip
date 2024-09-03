@@ -1,5 +1,11 @@
 package hannah.command;
 
+import hannah.Ui;
+import hannah.task.Task;
+import hannah.task.TaskList;
+
+import java.util.List;
+
 public class Command {
     private String commandType;
     private String arguments;

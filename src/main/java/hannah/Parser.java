@@ -25,6 +25,8 @@ public class Parser {
                 return new Command("deadline", parts.length > 1 ? parts[1] : null);
             case "event":
                 return new Command("event", parts.length > 1 ? parts[1] : null);
+            case "find":
+                return new Command("find", parts.length > 1 ? parts[1] : null);
             default:
                 return new Command("unknown");
         }
