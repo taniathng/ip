@@ -1,7 +1,7 @@
 package hannah;
 
-import hannah.task.Deadlines;
-import hannah.task.Events;
+import hannah.task.Deadline;
+import hannah.task.Event;
 import hannah.task.ToDos;
 import hannah.task.TaskList;
 import hannah.task.Task;
@@ -51,14 +51,14 @@ public class Storage {
                 }
                 return todoTask;
             case "D":
-                Deadlines deadlineTask = new Deadlines(taskInfo[2]);
+                Deadline deadlineTask = new Deadline(taskInfo[2]);
                 if (isDone) {
                     deadlineTask.setDone();
                 }
                 deadlineTask.setDeadline(taskInfo[3].substring(3));
                 return deadlineTask;
             case "E":
-                Events eventTask = new Events(taskInfo[2]);
+                Event eventTask = new Event(taskInfo[2]);
                 if (isDone) {
                     eventTask.setDone();
                 }

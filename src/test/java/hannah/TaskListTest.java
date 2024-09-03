@@ -2,7 +2,7 @@ package hannah;
 import hannah.task.TaskList;
 import hannah.task.Task;
 import hannah.task.ToDos;
-import hannah.task.Deadlines;
+import hannah.task.Deadline;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,7 +27,7 @@ public class TaskListTest {
         // Arrange
         TaskList taskList = new TaskList();
         Task task1 = new ToDos("Finish homework");
-        Task task2 = new Deadlines("Submit project");
+        Task task2 = new Deadline("Submit project");
         task2.setDeadline("2023-10-01");
 
         // Act

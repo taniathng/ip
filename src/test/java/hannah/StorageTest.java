@@ -1,6 +1,6 @@
 package hannah;
 
-import hannah.task.Deadlines;
+import hannah.task.Deadline;
 import hannah.task.Task;
 import hannah.task.TaskList;
 import hannah.task.ToDos;
@@ -44,6 +44,6 @@ public class StorageTest {
         // Verify the second task is a deadline task
         assertEquals("return book", tasks.getTask(2).getName());
         assertFalse(tasks.getTask(2).isDone());
-        assertEquals("2023-10-10", ((Deadlines) tasks.getTask(2)).getDeadline().toString());
+        assertEquals("2023-10-10", ((Deadline) tasks.getTask(2)).getDeadline().toString());
     }
 }

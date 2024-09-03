@@ -4,11 +4,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Events extends Task {
+public class Event extends Task {
     String name;
     LocalDate startDuration;
     LocalDate endDuration;
-    public Events(String name){
+    public Event(String name){
         super(name);
 
     }
