@@ -20,6 +20,11 @@ public class Hannah {
     private static final String FILE_PATH = "src/data/Hannah.txt";
     private Ui ui;
 
+    /**
+     * The Hannah class represents the main application for managing tasks.
+     * It interacts with the user through the command line and processes tasks
+     * such as ToDos, Deadlines, and Events.
+     */
     public Hannah() {
         this.ui = new Ui();
         this.storage = new Storage(FILE_PATH);
@@ -32,6 +37,10 @@ public class Hannah {
         }
     }
 
+    /**
+     * Runs the Hannah application, handling user input and managing tasks.
+     * The application continues running until the user types "bye".
+     */
     public void run() {
         ui.showWelcomeMessage();
         Scanner scanner = new Scanner(System.in);
@@ -118,11 +127,24 @@ public class Hannah {
             storage.rewriteFile();  // Call to method that might throw IOException
         } catch (IOException e) {
             System.out.println("Error while rewriting the file: " + e.getMessage());
-        }    }
+        }
+    }
+
+    /**
+     * Main method to start the Hannah application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new Hannah().run();
     }
 
+    /**
+     * Validates that a date string is in the format yyyy-MM-dd.
+     *
+     * @param date The date string to validate.
+     * @return true if the date is valid, false otherwise.
+     */
     private boolean validateDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {

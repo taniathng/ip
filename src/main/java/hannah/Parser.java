@@ -2,8 +2,17 @@ package hannah;
 
 import hannah.command.Command;
 
+/**
+ * The Parser class handles the parsing of user input into commands.
+ */
 public class Parser {
 
+    /**
+     * Parses the user's input string and returns a Command object representing the command.
+     *
+     * @param userInput The raw input string from the user.
+     * @return A Command object corresponding to the parsed command type and arguments.
+     */
     public Command parse(String userInput) {
         String[] parts = userInput.split(" ", 2);
         String commandType = parts[0];
