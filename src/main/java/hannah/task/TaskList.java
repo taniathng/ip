@@ -76,8 +76,8 @@ public class TaskList {
      *
      * @param task The task to be marked as done.
      */
-    public void markTask(Task task){
-        if (!task.isDone) {
+    public void markTask(Task task) {
+        if (!task.isDone()) {
             task.setDone();
         }
     }
@@ -87,8 +87,8 @@ public class TaskList {
      *
      * @param task The task to be unmarked.
      */
-    public void unmarkTask(Task task){
-        if (task.isDone) {
+    public void unmarkTask(Task task) {
+        if (task.isDone()) {
             task.setDone();
         }
     }

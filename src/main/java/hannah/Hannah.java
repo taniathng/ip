@@ -1,24 +1,31 @@
 package hannah;
 
-import hannah.command.Command;
-import hannah.task.Task;
-import hannah.task.TaskList;
-import hannah.task.ToDos;
-import hannah.task.Deadline;
-import hannah.task.Event;
-
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.List;
 import java.util.Scanner;
-import java.io.*;
 
+import hannah.command.Command;
+import hannah.task.Deadline;
+import hannah.task.Event;
+import hannah.task.Task;
+import hannah.task.TaskList;
+import hannah.task.ToDos;
+
+/**
+ * Represents the main class for the Hannah application.
+ * The Hannah class manages tasks by interacting with the user through commands
+ * such as adding, deleting, marking tasks, and finding tasks. It stores and retrieves
+ * tasks using the Storage class, and processes user input using the Parser class.
+ * The application runs in a loop until the user inputs the "bye" command.
+ */
 public class Hannah {
+    private static final String FILE_PATH = "src/data/Hannah.txt";
     private Storage storage;
     private TaskList list;
     private Parser parser;
-    private static final String FILE_PATH = "src/data/Hannah.txt";
     private Ui ui;
 
     /**
@@ -86,11 +93,11 @@ public class Hannah {
                     System.out.println(" Please add a task after deadline");
                 } else {
                     int slashIndex = userInput.indexOf("/");
-                    if (!validateDate(userInput.substring(slashIndex + 4))){
+                    if (!validateDate(userInput.substring(slashIndex + 4))) {
                         continue;
                     }
 
-                    String taskName = userInput.substring(9, slashIndex -1);
+                    String taskName = userInput.substring(9, slashIndex - 1);
                     task = new Deadline(taskName);
                     task.setDeadline(userInput.substring(slashIndex + 4));
                     list.addTask(task);
@@ -103,21 +110,21 @@ public class Hannah {
                 } else {
                     int fromIndex = userInput.indexOf("/from");
                     int toIndex = userInput.indexOf("/to");
-                    if (!validateDate(userInput.substring(fromIndex + 6, toIndex -1))){
+                    if (!validateDate(userInput.substring(fromIndex + 6, toIndex - 1))) {
                         System.out.println(userInput.substring(fromIndex + 6));
                         continue;
                     }
-                    if (!validateDate(userInput.substring(toIndex + 4))){
+                    if (!validateDate(userInput.substring(toIndex + 4))) {
                         continue;
                     }
-                    String taskName = userInput.substring(6, fromIndex -1);
+                    String taskName = userInput.substring(6, fromIndex - 1);
                     task = new Event(taskName);
-                    task.setDuration(userInput.substring(fromIndex + 6, toIndex-1), userInput.substring(toIndex + 4));
+                    task.setDuration(userInput.substring(fromIndex + 6, toIndex - 1), userInput.substring(toIndex + 4));
                     list.addTask(task);
                     int taskCount = list.size();
                     ui.showTaskAdded(task, taskCount);
                 }
-            } else if (commandName == "find"){
+            } else if (commandName == "find") {
                 System.out.println("finding...");
                 String keyword = ui.getKeyword(userInput);
                 ui.showFindResults(list, keyword);
@@ -129,7 +136,7 @@ public class Hannah {
             System.out.println("____________________________________________________________");
         }
         try {
-            storage.rewriteFile();  // Call to method that might throw IOException
+            storage.rewriteFile();
         } catch (IOException e) {
             System.out.println("Error while rewriting the file: " + e.getMessage());
         }

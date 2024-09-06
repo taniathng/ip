@@ -2,6 +2,7 @@ package hannah;
 
 import java.util.List;
 import java.util.Scanner;
+
 import hannah.task.Task;
 import hannah.task.TaskList;
 
@@ -118,7 +119,7 @@ public class Ui {
      * @param userInput The user's input string.
      * @return The task number extracted from the input.
      */
-    public int getTaskNumber(String userInput){
+    public int getTaskNumber(String userInput) {
         String[] parts = userInput.split(" ");
         int taskNumber = 0;
         if (parts.length > 1) {
@@ -127,11 +128,31 @@ public class Ui {
         return taskNumber;
     }
 
-    public String getKeyword(String userInput){
+    /**
+     * Extracts and returns the keyword from the user input.
+     *
+     * This method splits the user input by spaces and returns the second part
+     * which is assumed to be the keyword for searching tasks.
+     *
+     * @param userInput The full user input string entered by the user.
+     * @return The keyword extracted from the input string.
+     * @throws ArrayIndexOutOfBoundsException If the user input does not contain a keyword.
+     */
+    public String getKeyword(String userInput) {
         String[] parts = userInput.split(" ");
         return parts[1];
     }
 
+    /**
+     * Displays the tasks that match the specified keyword.
+     *
+     * This method searches through the given list of tasks using the specified keyword and
+     * prints all matching tasks to the console. The matching tasks are printed with their
+     * respective task numbers.
+     *
+     * @param tasks   The TaskList object containing the list of tasks to search through.
+     * @param keyword The keyword to search for within the task names.
+     */
     public void showFindResults(TaskList tasks, String keyword) {
         System.out.println("Here are the matching tasks in your list:");
         List<Task> matchingTasks = tasks.findTasks(keyword);

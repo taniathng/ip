@@ -4,8 +4,8 @@ package hannah.task;
  * The Task class represents a generic task with a name and a status indicating whether it is done.
  */
 public class Task {
-    boolean isDone;
-    String name;
+    private boolean isDone;
+    private String name;
 
     /**
      * Initializes a Task with the specified name.
@@ -31,7 +31,7 @@ public class Task {
      */
     public String toString() {
         String done = this.isDone ? "X" : " ";
-        return("[" + done + "] " + this.name);
+        return ("[" + done + "] " + this.name);
     }
     /**
      * Returns the name of the task.
@@ -47,7 +47,7 @@ public class Task {
      *
      * @return An empty string, intended to be overridden by subclasses.
      */
-    public String saveTaskFormat(){
+    public String saveTaskFormat() {
         return "";
     }
 

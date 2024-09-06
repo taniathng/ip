@@ -4,13 +4,13 @@ package hannah.task;
  * The ToDos class represents a task that needs to be done, without a specific deadline or event duration.
  */
 public class ToDos extends Task {
-    String name;
+    private String name;
     /**
      * Initializes a ToDos task with the specified name.
      *
      * @param name The name of the ToDos task.
      */
-    public ToDos(String name){
+    public ToDos(String name) {
         super(name);
     }
 
@@ -20,8 +20,8 @@ public class ToDos extends Task {
      * @return A string representing the ToDos task.
      */
     @Override
-    public String toString(){
-        return("[T]" + super.toString());
+    public String toString() {
+        return ("[T]" + super.toString());
     }
 
     /**
@@ -30,8 +30,8 @@ public class ToDos extends Task {
      * @return A formatted string representing the task for file storage.
      */
     @Override
-    public String saveTaskFormat(){
-        String line =  "T | " + (isDone ? "1" : "0") + " | " + super.name;
+    public String saveTaskFormat() {
+        String line = "T | " + (isDone() ? "1" : "0") + " | " + this.name;
         return line + System.lineSeparator();
     }
 }
