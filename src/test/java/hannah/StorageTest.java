@@ -1,18 +1,17 @@
 package hannah;
-
-import hannah.task.Deadline;
-import hannah.task.Task;
-import hannah.task.TaskList;
-import hannah.task.ToDos;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+import hannah.task.Deadline;
+import hannah.task.TaskList;
+import hannah.task.ToDos;
 public class StorageTest {
 
     private Storage storage;

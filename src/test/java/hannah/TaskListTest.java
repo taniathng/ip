@@ -1,10 +1,14 @@
 package hannah;
-import hannah.task.TaskList;
-import hannah.task.Task;
-import hannah.task.ToDos;
-import hannah.task.Deadline;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import hannah.task.Deadline;
+import hannah.task.Task;
+import hannah.task.TaskList;
+import hannah.task.ToDos;
+
 
 public class TaskListTest {
 

@@ -168,4 +168,7 @@ public class Hannah {
             return false;
         }
     }
+    public String getResponse(String input) {
+        return "Hannah heard: " + input;
+    }
 }
