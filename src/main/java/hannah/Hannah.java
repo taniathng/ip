@@ -19,7 +19,6 @@ import hannah.task.ToDos;
  * The Hannah class manages tasks by interacting with the user through commands
  * such as adding, deleting, marking tasks, and finding tasks. It stores and retrieves
  * tasks using the Storage class, and processes user input using the Parser class.
- * The application runs in a loop until the user inputs the "bye" command.
  */
 public class Hannah {
     private static final String FILE_PATH = "src/data/Hannah.txt";
@@ -49,97 +48,95 @@ public class Hannah {
      * Runs the Hannah application, handling user input and managing tasks.
      * The application continues running until the user types "bye".
      */
-    public void run() {
-        ui.showWelcomeMessage();
-        Scanner scanner = new Scanner(System.in);
+    public String run(String userInput) {
         TaskList list = (TaskList) this.storage.getTaskList();
-        while (true) {
-            String userInput = ui.readCommand();
-            Command command = parser.parse(userInput);
-            Task task = null;
-            String commandName = command.getCommandType();
-            if (commandName == "bye") {
-                ui.showGoodbyeMessage();
-                break;
-            } else if (commandName == "list") {
-                ui.showTasks(list);
-            } else if (commandName == "delete") {
+        String result;
+        Command command = parser.parse(userInput);
+        Task task = null;
+        String commandName = command.getCommandType();
+
+        try {
+            if (commandName.equals("bye")) {
+                result = ui.showGoodbyeMessage();
+            } else if (commandName.equals("list")) {
+                result = ui.showTasks(list);
+            } else if (commandName.equals("delete")) {
                 int taskNumber = ui.getTaskNumber(userInput);
                 task = list.getTask(taskNumber);
                 list.deleteTask(taskNumber);
                 int taskCount = list.size();
-                ui.showTaskDeleted(taskCount, task);
-            } else if (commandName == "unmark") {
+                result = ui.showTaskDeleted(taskCount, task);
+            } else if (commandName.equals("unmark")) {
                 int taskNumber = ui.getTaskNumber(userInput);
                 task = list.getTask(taskNumber);
                 list.unmarkTask(task);
-                ui.showTaskUnmarked(task);
-            } else if (commandName == "mark") {
+                result = ui.showTaskUnmarked(task);
+            } else if (commandName.equals("mark")) {
                 int taskNumber = ui.getTaskNumber(userInput);
                 task = list.getTask(taskNumber);
                 list.markTask(task);
-                ui.showTaskMarked(task);
-            } else if (commandName == "todo") {
+                result = ui.showTaskMarked(task);
+            } else if (commandName.equals("todo")) {
                 if (userInput.length() <= 4) {
-                    System.out.println(" Please add a task todo");
+                    result = "Please add a task todo";
                 } else {
                     task = new ToDos(userInput.substring(5));
                     list.addTask(task);
                     int taskCount = list.size();
-                    ui.showTaskAdded(task, taskCount);
+                    result = ui.showTaskAdded(task, taskCount);
                 }
-            } else if (commandName == "deadline") {
+            } else if (commandName.equals("deadline")) {
                 if (userInput.length() <= 8) {
-                    System.out.println(" Please add a task after deadline");
+                    result = "Please add a task after deadline";
                 } else {
                     int slashIndex = userInput.indexOf("/");
                     if (!validateDate(userInput.substring(slashIndex + 4))) {
-                        continue;
+                        result = "Invalid date format. Please use yyyy-MM-dd.";
+                    } else {
+                        String taskName = userInput.substring(9, slashIndex - 1);
+                        task = new Deadline(taskName);
+                        task.setDeadline(userInput.substring(slashIndex + 4));
+                        list.addTask(task);
+                        int taskCount = list.size();
+                        result = ui.showTaskAdded(task, taskCount);
                     }
-
-                    String taskName = userInput.substring(9, slashIndex - 1);
-                    task = new Deadline(taskName);
-                    task.setDeadline(userInput.substring(slashIndex + 4));
-                    list.addTask(task);
-                    int taskCount = list.size();
-                    ui.showTaskAdded(task, taskCount);
                 }
-            } else if (commandName == "event") {
+            } else if (commandName.equals("event")) {
                 if (userInput.length() <= 5) {
-                    System.out.println(" Please add a task after event");
+                    result = "Please add a task after event";
                 } else {
                     int fromIndex = userInput.indexOf("/from");
                     int toIndex = userInput.indexOf("/to");
                     if (!validateDate(userInput.substring(fromIndex + 6, toIndex - 1))) {
-                        System.out.println(userInput.substring(fromIndex + 6));
-                        continue;
+                        result = "Invalid date format for 'from'. Please use yyyy-MM-dd.";
+                    } else if (!validateDate(userInput.substring(toIndex + 4))) {
+                        result = "Invalid date format for 'to'. Please use yyyy-MM-dd.";
+                    } else {
+                        String taskName = userInput.substring(6, fromIndex - 1);
+                        task = new Event(taskName);
+                        task.setDuration(userInput.substring(fromIndex + 6, toIndex - 1),
+                                userInput.substring(toIndex + 4));
+                        list.addTask(task);
+                        int taskCount = list.size();
+                        result = ui.showTaskAdded(task, taskCount);
                     }
-                    if (!validateDate(userInput.substring(toIndex + 4))) {
-                        continue;
-                    }
-                    String taskName = userInput.substring(6, fromIndex - 1);
-                    task = new Event(taskName);
-                    task.setDuration(userInput.substring(fromIndex + 6, toIndex - 1), userInput.substring(toIndex + 4));
-                    list.addTask(task);
-                    int taskCount = list.size();
-                    ui.showTaskAdded(task, taskCount);
                 }
-            } else if (commandName == "find") {
-                System.out.println("finding...");
+            } else if (commandName.equals("find")) {
                 String keyword = ui.getKeyword(userInput);
-                ui.showFindResults(list, keyword);
+                result = ui.showFindResults(list, keyword);
             } else {
-                // invalid input
-                System.out.println("____________________________________________________________");
-                System.out.println("Commands: todo, deadline, event, delete, mark, unmark");
+                result = "____________________________________________________________\n"
+                        + "Commands: todo, deadline, event, delete, mark, unmark\n"
+                        + "____________________________________________________________";
             }
-            System.out.println("____________________________________________________________");
-        }
-        try {
+
             storage.rewriteFile();
+
         } catch (IOException e) {
-            System.out.println("Error while rewriting the file: " + e.getMessage());
+            result = "Error while rewriting the file: " + e.getMessage();
         }
+
+        return result;
     }
 
     /**
@@ -148,7 +145,19 @@ public class Hannah {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        new Hannah().run();
+        Hannah hannah = new Hannah();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(hannah.ui.showWelcomeMessage());
+
+        while (true) {
+            String userInput = scanner.nextLine();
+            String response = hannah.run(userInput);
+            System.out.println(response);
+
+            if (userInput.equals("bye")) {
+                break;
+            }
+        }
     }
 
     /**
@@ -163,11 +172,10 @@ public class Hannah {
             LocalDate.parse(date, formatter);
             return true;
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please use yyyy-MM-dd.");
-            System.out.println("____________________________________________________________");
             return false;
         }
     }
+
     public String getResponse(String input) {
         return "Hannah heard: " + input;
     }

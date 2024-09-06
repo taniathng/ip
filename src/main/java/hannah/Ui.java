@@ -20,88 +20,88 @@ public class Ui {
     }
 
     /**
-     * Displays a welcome message when the program starts.
+     * Returns a welcome message when the program starts.
      */
-    public void showWelcomeMessage() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm Hannah.");
-        System.out.println(" What can I do for you?");
-        System.out.println("____________________________________________________________");
+    public String showWelcomeMessage() {
+        return "____________________________________________________________\n"
+                + " Hello! I'm Hannah.\n"
+                + " What can I do for you?\n"
+                + "____________________________________________________________";
     }
 
     /**
-     * Displays a goodbye message when the program ends.
+     * Returns a goodbye message when the program ends.
      */
-    public void showGoodbyeMessage() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Bye. Hope to see you again soon!");
+    public String showGoodbyeMessage() {
+        return "____________________________________________________________\n"
+                + " Bye. Hope to see you again soon!\n"
+                + "____________________________________________________________";
     }
 
     /**
-     * Displays all tasks currently in the list.
+     * Returns all tasks currently in the list as a string.
      *
      * @param tasks The TaskList containing the tasks to be displayed.
      */
-    public void showTasks(TaskList tasks) {
-        System.out.println("Tasks on your list!");
+    public String showTasks(TaskList tasks) {
+        StringBuilder sb = new StringBuilder("Tasks on your list!\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(i + 1 + ". " + tasks.getTasks().get(i).toString());
+            sb.append(i + 1).append(". ").append(tasks.getTasks().get(i).toString()).append("\n");
         }
+        return sb.toString();
     }
 
     /**
-     * Displays a message indicating that a task has been added.
+     * Returns a message indicating that a task has been added.
      *
      * @param task      The task that was added.
      * @param taskCount The current number of tasks in the list.
      */
-    public void showTaskAdded(Task task, int taskCount) {
-        System.out.println("Added task!");
-        System.out.println(task.toString());
-        System.out.println("You now have " + taskCount + " tasks in your list.");
+    public String showTaskAdded(Task task, int taskCount) {
+        return "Added task!\n"
+                + task.toString() + "\n"
+                + "You now have " + taskCount + " tasks in your list.";
     }
 
     /**
-     * Displays a message indicating that a task has been deleted.
+     * Returns a message indicating that a task has been deleted.
      *
      * @param taskCount The current number of tasks in the list.
      * @param task      The task that was deleted.
      */
-    public void showTaskDeleted(int taskCount, Task task) {
-        System.out.println("Okay will remove the task: ");
-        System.out.println(task.toString());
-        System.out.println("You now have " + taskCount + " tasks in your list.");
+    public String showTaskDeleted(int taskCount, Task task) {
+        return "Okay, will remove the task:\n"
+                + task.toString() + "\n"
+                + "You now have " + taskCount + " tasks in your list.";
     }
 
     /**
-     * Displays a message indicating that a task has been marked as done.
+     * Returns a message indicating that a task has been marked as done.
      *
      * @param task The task that was marked as done.
      */
-    public void showTaskMarked(Task task) {
-        System.out.println("Good job! hannah.task.Task Marked!");
-        System.out.println(task.toString());
+    public String showTaskMarked(Task task) {
+        return "Good job! Task marked as done!\n" + task.toString();
     }
 
     /**
-     * Displays a message indicating that a task has been unmarked (marked as not done).
+     * Returns a message indicating that a task has been unmarked (marked as not done).
      *
      * @param task The task that was unmarked.
      */
-    public void showTaskUnmarked(Task task) {
-        System.out.println("Okay, task unmarked!");
-        System.out.println(task.toString());
+    public String showTaskUnmarked(Task task) {
+        return "Okay, task unmarked!\n" + task.toString();
     }
 
     /**
-     * Displays an error message to the user.
+     * Returns an error message to the user.
      *
      * @param message The error message to be displayed.
      */
-    public void showErrorMessage(String message) {
-        System.out.println("____________________________________________________________");
-        System.out.println(message);
-        System.out.println("____________________________________________________________");
+    public String showErrorMessage(String message) {
+        return "____________________________________________________________\n"
+                + message + "\n"
+                + "____________________________________________________________";
     }
 
     /**
@@ -136,7 +136,6 @@ public class Ui {
      *
      * @param userInput The full user input string entered by the user.
      * @return The keyword extracted from the input string.
-     * @throws ArrayIndexOutOfBoundsException If the user input does not contain a keyword.
      */
     public String getKeyword(String userInput) {
         String[] parts = userInput.split(" ");
@@ -144,22 +143,21 @@ public class Ui {
     }
 
     /**
-     * Displays the tasks that match the specified keyword.
+     * Returns the tasks that match the specified keyword as a string.
      *
      * This method searches through the given list of tasks using the specified keyword and
-     * prints all matching tasks to the console. The matching tasks are printed with their
-     * respective task numbers.
+     * returns all matching tasks with their respective task numbers.
      *
      * @param tasks   The TaskList object containing the list of tasks to search through.
      * @param keyword The keyword to search for within the task names.
      */
-    public void showFindResults(TaskList tasks, String keyword) {
-        System.out.println("Here are the matching tasks in your list:");
+    public String showFindResults(TaskList tasks, String keyword) {
+        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
         List<Task> matchingTasks = tasks.findTasks(keyword);
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + matchingTasks.get(i));
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            sb.append((i + 1)).append(". ").append(matchingTasks.get(i).toString()).append("\n");
         }
-        System.out.println("____________________________________________________________");
+        sb.append("____________________________________________________________");
+        return sb.toString();
     }
-
 }
