@@ -10,6 +10,7 @@ import java.time.format.DateTimeParseException;
  * for the start and end duration.
  */
 public class Event extends Task {
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
     private String name;
     private LocalDate startDuration;
     private LocalDate endDuration;
@@ -81,7 +82,7 @@ public class Event extends Task {
     @Override
     public String saveTaskFormat() {
         String line = "E | " + (isDone() ? "1" : "0") + " | "
-                + this.name + " | from "
+                + getName() + " | from "
                 + this.startDuration
                 + " to " + this.endDuration;
         return line + System.lineSeparator();
