@@ -47,12 +47,12 @@ public class Event extends Task {
      */
     @Override
     public void setDuration(String startDuration, String endDuration) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
         try {
             this.startDuration = LocalDate.parse(startDuration, formatter);
             this.endDuration = LocalDate.parse(endDuration, formatter);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format for event duration. Please use yyyy-MM-dd.");
+            System.out.println("Invalid date format for event duration. Please use " + DATE_FORMAT + " .");
         }
     }
 
