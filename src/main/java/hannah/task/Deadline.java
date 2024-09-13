@@ -9,7 +9,6 @@ import java.time.format.DateTimeParseException;
  * A Deadline task has a specified due date and can be marked as completed.
  */
 public class Deadline extends Task {
-    private String name;
     private LocalDate deadline;
 
     /**
@@ -64,7 +63,7 @@ public class Deadline extends Task {
      */
     @Override
     public String saveTaskFormat() {
-        String line = "D | " + (isDone() ? "1" : "0") + " | " + this.name + " | by " + this.deadline;
+        String line = "D | " + (isDone() ? "1" : "0") + " | " + getName() + " | by " + this.deadline;
         return line + System.lineSeparator();
     }
 }
