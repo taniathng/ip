@@ -30,6 +30,22 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+    implementation 'org.openjfx:javafx-controls:17.0.11'
+    implementation 'org.openjfx:javafx-fxml:17.0.11'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'hannah.Launcher'  // Update with your main class
+        )
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE  // Handle duplicate entries
 }
 
 test {
