@@ -10,7 +10,6 @@ import java.time.format.DateTimeParseException;
  */
 public class Deadline extends Task {
     private static final String DATE_FORMAT = "yyyy-MM-dd";
-    private String name;
     private LocalDate deadline;
 
     /**
@@ -40,11 +39,11 @@ public class Deadline extends Task {
      */
     @Override
     public void setDeadline(String deadline) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             this.deadline = LocalDate.parse(deadline, formatter);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please use " + DATE_FORMAT + ".");
+            System.out.println("Invalid date format. Please use yyyy-MM-dd.");
         }
     }
 
@@ -65,7 +64,7 @@ public class Deadline extends Task {
      */
     @Override
     public String saveTaskFormat() {
-        String line = "D | " + (isDone() ? "1" : "0") + " | " + this.name + " | by " + this.deadline;
+        String line = "D | " + (isDone() ? "1" : "0") + " | " + getName() + " | by " + this.deadline;
         return line + System.lineSeparator();
     }
 }
