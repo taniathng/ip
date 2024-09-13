@@ -21,6 +21,7 @@ import hannah.task.ToDos;
  * tasks using the Storage class, and processes user input using the Parser class.
  */
 public class Hannah {
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String FILE_PATH = "src/data/Hannah.txt";
     private Storage storage;
     private TaskList list;
@@ -91,7 +92,7 @@ public class Hannah {
                 } else {
                     int slashIndex = userInput.indexOf("/");
                     if (!validateDate(userInput.substring(slashIndex + 4))) {
-                        result = "Invalid date format. Please use yyyy-MM-dd.";
+                        result = "Invalid date format. Please use " + DATE_FORMAT + ".";
                     } else {
                         String taskName = userInput.substring(9, slashIndex - 1);
                         task = new Deadline(taskName);
@@ -108,9 +109,10 @@ public class Hannah {
                     int fromIndex = userInput.indexOf("/from");
                     int toIndex = userInput.indexOf("/to");
                     if (!validateDate(userInput.substring(fromIndex + 6, toIndex - 1))) {
-                        result = "Invalid date format for 'from'. Please use yyyy-MM-dd.";
+                        result = "Invalid date format. Please use " + DATE_FORMAT + ".";
+
                     } else if (!validateDate(userInput.substring(toIndex + 4))) {
-                        result = "Invalid date format for 'to'. Please use yyyy-MM-dd.";
+                        result = "Invalid date format. Please use " + DATE_FORMAT + ".";
                     } else {
                         String taskName = userInput.substring(6, fromIndex - 1);
                         task = new Event(taskName);
@@ -167,7 +169,7 @@ public class Hannah {
      * @return true if the date is valid, false otherwise.
      */
     private boolean validateDate(String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
         try {
             LocalDate.parse(date, formatter);
             return true;

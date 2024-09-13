@@ -9,6 +9,7 @@ import java.time.format.DateTimeParseException;
  * A Deadline task has a specified due date and can be marked as completed.
  */
 public class Deadline extends Task {
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
     private String name;
     private LocalDate deadline;
 
@@ -39,11 +40,11 @@ public class Deadline extends Task {
      */
     @Override
     public void setDeadline(String deadline) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
         try {
             this.deadline = LocalDate.parse(deadline, formatter);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please use yyyy-MM-dd.");
+            System.out.println("Invalid date format. Please use " + DATE_FORMAT + ".");
         }
     }
 
