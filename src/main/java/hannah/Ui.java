@@ -160,4 +160,36 @@ public class Ui {
         sb.append("____________________________________________________________");
         return sb.toString();
     }
+
+    /**
+     * Returns a string containing the help message with all the available commands.
+     *
+     * The help message includes details on how to use the following commands:
+     * - list: Lists all tasks.
+     * - todo: Adds a new todo task.
+     * - deadline: Adds a new deadline task with a specified date.
+     * - event: Adds a new event task with a specified date.
+     * - mark/unmark: Marks or unmarks a task as done.
+     * - delete: Deletes a task based on its task number.
+     * - help: Displays the help message.
+     * - bye: Exits the application.
+     *
+     * @return A string that contains the help message with command descriptions.
+     */
+    public String getHelpMessage() {
+        StringBuilder helpMessage = new StringBuilder();
+        helpMessage.append("Here are the available commands:\n\n");
+        helpMessage.append("list - Lists all tasks\n");
+        helpMessage.append("todo [task] - Adds a new todo\n");
+        helpMessage.append("deadline [task] /by [date] - Adds a new deadline task\n");
+        helpMessage.append("event [task] /at [date] - Adds a new event task\n");
+        helpMessage.append("mark/unmark [task number] - Marks/unmarks a task as done\n");
+        helpMessage.append("delete [task number] - Deletes a task\n");
+        helpMessage.append("help - Shows this help message\n");
+        helpMessage.append("bye - Exits the application\n");
+
+        return helpMessage.toString();
+    }
+
+
 }

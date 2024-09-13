@@ -137,6 +137,8 @@ public class Hannah {
                 assert keyword != null && !keyword.trim().isEmpty()
                         : "Keyword for finding tasks should not be null or empty";
                 result = ui.showFindResults(list, keyword);
+            } else if (commandName.equals("help")) {
+                result = ui.getHelpMessage();
             } else {
                 result = "____________________________________________________________\n"
                         + "Commands: todo, deadline, event, delete, mark, unmark\n"
