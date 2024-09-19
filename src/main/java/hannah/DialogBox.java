@@ -71,7 +71,7 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getHannahDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        db.setStyle("-fx-background-color: #FECDFF; -fx-background-radius: 50;-fx-padding: 10; ");
+        db.setStyle("-fx-background-color: #FECEFF; -fx-background-radius: 50;-fx-padding: 10; ");
         db.flip();
         return db;
     }
