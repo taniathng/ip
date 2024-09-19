@@ -30,7 +30,7 @@ public class Task {
      * @return A string representing the task.
      */
     public String toString() {
-        String done = this.isDone ? "X" : " ";
+        String done = this.isDone ? "X" : "  ";
         return ("[" + done + "] " + this.name);
     }
     /**

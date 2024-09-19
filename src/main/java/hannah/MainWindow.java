@@ -22,8 +22,8 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Hannah hannahBot;
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Avatar.png"));
+    private Image hannahImage = new Image(this.getClass().getResourceAsStream("/images/Chatbot.png"));
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -44,7 +44,7 @@ public class MainWindow extends AnchorPane {
         String response = hannahBot.run(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getHannahDialog(response, dukeImage)
+                DialogBox.getHannahDialog(response, hannahImage)
         );
         userInput.clear();
     }

@@ -140,9 +140,7 @@ public class Hannah {
             } else if (commandName.equals("help")) {
                 result = ui.getHelpMessage();
             } else {
-                result = "____________________________________________________________\n"
-                        + "Commands: todo, deadline, event, delete, mark, unmark\n"
-                        + "____________________________________________________________";
+                result = "Commands: todo, deadline, event, delete, mark, unmark\n";
             }
 
             storage.rewriteFile();
