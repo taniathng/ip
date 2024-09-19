@@ -12,8 +12,6 @@ import hannah.task.Task;
 import hannah.task.TaskList;
 import hannah.task.ToDos;
 
-
-
 /**
  * The Storage class handles reading from and writing to the file that stores task data.
  */
@@ -28,17 +26,41 @@ public class Storage {
      * @param filePath The path to the file where tasks are stored.
      */
     public Storage(String filePath) {
-        this.filePath = filePath;
+        if (filePath == null || filePath.isEmpty()) {
+            // Use the current directory and create a default save path if filePath is not provided
+            String currentDir = System.getProperty("user.dir");
+            this.filePath = currentDir + File.separator + "data" + File.separator + "Hannah.txt";
+        } else {
+            this.filePath = filePath;
+        }
         this.taskList = new TaskList();
+        initSaveFile();
+    }
+
+    /**
+     * Ensures the save file and its directories are created if they do not exist.
+     */
+    private void initSaveFile() {
+        File file = new File(filePath);
+        try {
+            if (!file.exists()) {
+                File parentDir = file.getParentFile();
+                if (!parentDir.exists()) {
+                    parentDir.mkdirs();
+                }
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("Error creating save file: " + e.getMessage());
+        }
     }
 
     /**
      * Loads tasks from the file and returns a TaskList.
      *
      * @return A TaskList containing the tasks loaded from the file.
-     * @throws FileNotFoundException if the file is not found.
      */
-    public TaskList loadFile() throws FileNotFoundException {
+    public TaskList loadFile() throws IOException {
         File file = new File(filePath);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNext()) {
@@ -133,5 +155,3 @@ public class Storage {
         }
     }
 }
-
-

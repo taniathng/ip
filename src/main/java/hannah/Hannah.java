@@ -1,6 +1,5 @@
 package hannah;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -38,11 +37,11 @@ public class Hannah {
         this.storage = new Storage(FILE_PATH);
         this.parser = new Parser();
         try {
-            this.list = storage.loadFile();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + e.getMessage());
-            this.list = new TaskList(); // Initialize to an empty list if the file isn't found
+            storage.loadFile();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
         }
+
     }
 
     /**
