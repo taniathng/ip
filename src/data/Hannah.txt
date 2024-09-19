@@ -6,3 +6,5 @@ E | 0 | walk | from 2022-05-10 to 2023-05-04
 T | 1 | eat
 T | 1 | sleep
 T | 1 | dinner
+D | 1 | homework | by 2023-09-09
+E | 0 | hello | from 2030-08-08 to 2022-01-01

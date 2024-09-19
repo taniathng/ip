@@ -23,19 +23,15 @@ public class Ui {
      * Returns a welcome message when the program starts.
      */
     public String showWelcomeMessage() {
-        return "____________________________________________________________\n"
-                + " Hello! I'm Hannah.\n"
-                + " What can I do for you?\n"
-                + "____________________________________________________________";
+        return "Hello! I'm Hannah.\n"
+                + " What can I do for you?\n";
     }
 
     /**
      * Returns a goodbye message when the program ends.
      */
     public String showGoodbyeMessage() {
-        return "____________________________________________________________\n"
-                + " Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________";
+        return " Bye. Hope to see you again soon!\n";
     }
 
     /**
