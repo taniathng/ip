@@ -48,12 +48,27 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates a dialog box for the user's input with a specified background color and padding.
+     *
+     * @param text The text to display in the dialog box.
+     * @param img The image to display alongside the dialog box.
+     * @return A DialogBox styled for the user's input.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.setStyle("-fx-background-color: #AE59FA; -fx-background-radius: 50;-fx-padding: 10;");
         return db;
     }
 
+    /**
+     * Creates a dialog box for Hannah's response with a specified background color and padding.
+     * The dialog box is flipped to differentiate it from the user's input.
+     *
+     * @param text The text to display in the dialog box.
+     * @param img The image to display alongside the dialog box.
+     * @return A DialogBox styled for Hannah's response.
+     */
     public static DialogBox getHannahDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.setStyle("-fx-background-color: #FECDFF; -fx-background-radius: 50;-fx-padding: 10; ");
