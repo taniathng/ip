@@ -1,30 +1,33 @@
-# Duke User Guide
+# Hannah
 
-// Update the title above to match the actual product name
+> “Your mind is for having ideas, not holding them.” – David Allen
 
-// Product screenshot goes here
+Hannah has a ton of features for you to try!!
 
-// Product intro goes here
+- **Text-based**
+- **Easy to learn**
+- **FAST & SUPER FAST** to use
 
-## Adding deadlines
+All you need to do is:
+1. Download it from [here](https://github.com/taniathng/ip).
+2. Double-click it.
+3. Add your tasks.
+4. Let it manage your tasks for you! 😉
 
-// Describe the action and its outcome.
+### Features:
+- [x] Managing ToDos
+- [x] Managing Deadlines
+- [ ] Managing Events
+- [ ] Reminders (coming soon)
 
-// Give examples of usage
+If you are a Java programmer, you can use it to practice Java too. Here's the main method:
 
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
+```java
+public class Main {
+    public static void main(String[] args) {
+        Application.launch(MainApp.class, args);
+    }
+}
 ```
-expected output
-```
 
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
+You can also edit your code using `inline code` like this: `TaskList.addTask()`.
