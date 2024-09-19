@@ -32,6 +32,11 @@ public class MainWindow extends AnchorPane {
     /** Injects the Hannah instance */
     public void setHannah(Hannah bot) {
         this.hannahBot = bot;
+        // Ui.showWelcomeMessage();
+        String welcomeMessage = hannahBot.getUi().showWelcomeMessage();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getHannahDialog(welcomeMessage, hannahImage)
+        );
     }
 
     /**

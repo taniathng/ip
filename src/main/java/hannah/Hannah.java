@@ -192,4 +192,9 @@ public class Hannah {
     public String getResponse(String input) {
         return "Hannah heard: " + input;
     }
+
+    public Ui getUi() {
+        return ui;
+    }
+
 }
