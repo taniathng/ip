@@ -153,7 +153,6 @@ public class Ui {
         for (int i = 0; i < matchingTasks.size(); i++) {
             sb.append((i + 1)).append(". ").append(matchingTasks.get(i).toString()).append("\n");
         }
-        sb.append("____________________________________________________________");
         return sb.toString();
     }
 
