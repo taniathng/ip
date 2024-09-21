@@ -14,27 +14,22 @@ repositories {
 }
 
 dependencies {
-    String javaFxVersion = '17.0.11'
+    String javaFxVersion = '17.0.7'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
-    implementation "org.openjfx:javafx-base:${javaFxVersion}:mac-aarch64"
-    implementation "org.openjfx:javafx-controls:${javaFxVersion}:mac-aarch64"
-    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:mac-aarch64"
-    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:mac-aarch64"
-}
-
-jar {
-    manifest {
-        attributes(
-                'Main-Class': 'hannah.Launcher'  // Update with your main class
-        )
-    }
-
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE  // Handle duplicate entries
 }
 
 test {

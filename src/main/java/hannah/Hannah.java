@@ -12,6 +12,7 @@ import hannah.task.Event;
 import hannah.task.Task;
 import hannah.task.TaskList;
 import hannah.task.ToDos;
+import javafx.application.Platform;
 
 /**
  * Represents the main class for the Hannah application.
@@ -59,6 +60,7 @@ public class Hannah {
         try {
             if (commandName.equals("bye")) {
                 result = ui.showGoodbyeMessage();
+                Platform.exit();
             } else if (commandName.equals("list")) {
                 result = ui.showTasks(list);
             } else if (commandName.equals("delete")) {
